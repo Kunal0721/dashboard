@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBug, faUserPlus, faBroadcastTower } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import {
+  faBug,
+  faUserPlus,
+  faBroadcastTower,
+} from "@fortawesome/free-solid-svg-icons";
 
 const notifications = [
   { id: 1, title: "You have a bug that needs...", time: "Just now", icon: faBug },
@@ -28,352 +29,83 @@ const contacts = [
 ]
 
 interface RightSidebarProps {
-  isVisible?: boolean
-  onClose?: () => void
+  isVisible?: boolean;
 }
 
-export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
-  const [hoveredNotification, setHoveredNotification] = useState<number | null>(null)
-  const [hoveredActivity, setHoveredActivity] = useState<number | null>(null)
-  const [hoveredContact, setHoveredContact] = useState<number | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
+export function RightSidebar({ isVisible = true }: RightSidebarProps) {
+  if (!isVisible) return null;
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  const containerVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.4,
-      },
-    },
-  }
-
-  const headerVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        delay: 0.1,
-      },
-    },
-  }
-
-  const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        staggerChildren: 0.08,
-        delayChildren: 0.2,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -10, y: 5 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
-    exit: {
-      opacity: 0,
-      x: 10,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  }
-
-  const notificationItemVariants = {
-    initial: {
-      opacity: 0,
-      x: 400,
-      y: -20,
-      scale: 0.9,
-    },
-    animate: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      scale: 1,
-    },
-    hover: {
-      x: 8,
-      y: -2,
-      scale: 1.02,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  }
-
-  const iconVariants = {
-    initial: { scale: 0.8, rotate: -180 },
-    animate: {
-      scale: 1,
-      rotate: 0,
-    },
-    hover: {
-      scale: 1.15,
-      rotate: 5,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  }
-
-  const avatarVariants = {
-    initial: { scale: 0, rotate: -180 },
-    animate: {
-      scale: 1,
-      rotate: 0,
-    },
-    hover: {
-      scale: 1.1,
-      filter: "brightness(1.1)",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  }
-
-  const textVariants = {
-    hover: {
-      transition: {
-        duration: 0.2,
-      },
-    },
-  }
-
-  const sidebarContent = (
-    <>
-      {/* Header */}
-      <motion.div className="px-4 border-b" style={{padding : "16px 16px 20px 16px"}} variants={headerVariants} initial="hidden" animate="visible">
-        <motion.h2
-          className="text-xl font-bold"
-          initial={{ opacity: 0, y: -5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-        >
-          Notifications
-        </motion.h2>
-      </motion.div>
-
+  return (
+    <div className="w-64 border-l bg-background overflow-y-auto">
+      <div className="px-4 py-6 border-b">
+        <h2 className="text-xl font-bold">Notifications</h2>
+      </div>
       <div className="px-4">
         {/* Notifications Section */}
-        <motion.div className="mb-6 mt-6" variants={sectionVariants} initial="hidden" animate="visible">
-          <motion.h3
-            className="text-base font-bold mb-4 text-foreground"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-          >
+        <div className="mb-6 mt-6">
+          <h3 className="text-base font-bold mb-4 text-foreground">
             Notifications
-          </motion.h3>
+          </h3>
           <div className="space-y-4">
-            {notifications.map((notification, index) => (
-              <motion.div
-                key={notification.id}
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                custom={index}
-                onHoverStart={() => setHoveredNotification(notification.id)}
-                onHoverEnd={() => setHoveredNotification(null)}
-              >
-                <motion.div
-                  className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors"
-                  variants={notificationItemVariants}
-                  initial="initial"
-                  animate="animate"
-                  custom={index}
-                  whileHover="hover"
-                  style={{
-                    backgroundColor: hoveredNotification === notification.id ? "var(--muted)" : "transparent",
-                  }}
-                >
-                  <motion.div
-                    className="h-10 w-10 rounded-full bg-muted flex items-center justify-center shrink-0"
-                    variants={iconVariants}
-                    initial="initial"
-                    animate="animate"
-                    whileHover={hoveredNotification === notification.id ? "hover" : "animate"}
-                  >
+            {notifications.map((notification) => (
+              <div key={notification.id}>
+                <div className="flex items-start gap-3">
+                  <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center shrink-0">
                     <FontAwesomeIcon icon={notification.icon} className="h-5 w-5" />
-                  </motion.div>
-                  <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-                    <motion.span
-                      className="text-sm font-medium truncate"
-                      variants={textVariants}
-                      whileHover={hoveredNotification === notification.id ? "hover" : {}}
-                    >
-                      {notification.title}
-                    </motion.span>
-                    <motion.span
-                      className="text-xs text-muted-foreground mt-0.5"
-                      initial={{ opacity: 0.6 }}
-                      whileHover={hoveredNotification === notification.id ? { opacity: 0.8 } : {}}
-                    >
-                      {notification.time}
-                    </motion.span>
                   </div>
-                </motion.div>
-              </motion.div>
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <span className="text-sm font-medium truncate">{notification.title}</span>
+                    <span className="text-xs text-muted-foreground mt-0.5">{notification.time}</span>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Activities Section */}
-        <motion.div className="mb-6" variants={sectionVariants} initial="hidden" animate="visible">
-          <motion.h3
-            className="text-base font-bold mb-4 text-foreground"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
-          >
+        <div className="mb-6">
+          <h3 className="text-base font-bold mb-4 text-foreground">
             Activities
-          </motion.h3>
+          </h3>
           <div className="space-y-4">
-            {activities.map((activity, index) => (
-              <motion.div
-                key={activity.id}
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                custom={index}
-                onHoverStart={() => setHoveredActivity(activity.id)}
-                onHoverEnd={() => setHoveredActivity(null)}
-              >
-                <motion.div
-                  className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors"
-                  variants={notificationItemVariants}
-                  initial="initial"
-                  animate="animate"
-                  custom={index}
-                  whileHover="hover"
-                  style={{
-                    backgroundColor: hoveredActivity === activity.id ? "var(--muted)" : "transparent",
-                  }}
-                >
-                  <motion.img
+            {activities.map((activity) => (
+              <div key={activity.id}>
+                <div className="flex items-start gap-3">
+                  <img
                     src={activity.avatar}
                     alt="User"
                     className="h-10 w-10 rounded-full object-cover shrink-0"
-                    variants={avatarVariants}
-                    initial="initial"
-                    animate="animate"
-                    whileHover={hoveredActivity === activity.id ? "hover" : "animate"}
                   />
-                  <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-                    <motion.span
-                      className="text-sm font-medium truncate"
-                      variants={textVariants}
-                      whileHover={hoveredActivity === activity.id ? "hover" : {}}
-                    >
-                      {activity.action}
-                    </motion.span>
-                    <motion.span
-                      className="text-xs text-muted-foreground mt-0.5"
-                      initial={{ opacity: 0.6 }}
-                      whileHover={hoveredActivity === activity.id ? { opacity: 0.8 } : {}}
-                    >
-                      {activity.time}
-                    </motion.span>
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <span className="text-sm font-medium truncate">{activity.action}</span>
+                    <span className="text-xs text-muted-foreground mt-0.5">{activity.time}</span>
                   </div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Contacts Section */}
-        <motion.div className="mb-6" variants={sectionVariants} initial="hidden" animate="visible">
-          <motion.h3
-            className="text-base font-bold mb-4 text-foreground"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-          >
-            Contacts
-          </motion.h3>
+        <div className="mb-6">
+          <h3 className="text-base font-bold mb-4 text-foreground">Contacts</h3>
           <div className="space-y-3">
-            {contacts.map((contact, index) => (
-              <motion.div
-                key={contact.id}
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                custom={index}
-                onHoverStart={() => setHoveredContact(contact.id)}
-                onHoverEnd={() => setHoveredContact(null)}
-              >
-                <motion.div
-                  className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors"
-                  variants={notificationItemVariants}
-                  initial="initial"
-                  animate="animate"
-                  custom={index}
-                  whileHover="hover"
-                  style={{
-                    backgroundColor: hoveredContact === contact.id ? "var(--muted)" : "transparent",
-                  }}
-                >
-                  <motion.img
+            {contacts.map((contact) => (
+              <div key={contact.id}>
+                <div className="flex items-center gap-3">
+                  <img
                     src={contact.image}
                     alt={contact.name}
                     className="h-10 w-10 rounded-full object-cover shrink-0"
-                    variants={avatarVariants}
-                    initial="initial"
-                    animate="animate"
-                    whileHover={hoveredContact === contact.id ? "hover" : "animate"}
                   />
-                  <motion.span
-                    className="text-sm font-medium truncate"
-                    variants={textVariants}
-                    whileHover={hoveredContact === contact.id ? "hover" : {}}
-                  >
-                    {contact.name}
-                  </motion.span>
-                </motion.div>
-              </motion.div>
+                  <span className="text-sm font-medium truncate">{contact.name}</span>
+                </div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
-    </>
-  )
-
-  return isMobile ? (
-    <Sheet open={isVisible} onOpenChange={(open) => !open && onClose?.()}>
-      <SheetContent side="right" className="w-64 p-0 overflow-y-auto">
-        {sidebarContent}
-      </SheetContent>
-    </Sheet>
-  ) : isVisible ? (
-    <motion.div
-      className="w-64 border-l bg-background overflow-y-auto h-full"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      {sidebarContent}
-    </motion.div>
-  ) : null
+    </div>
+  );
 }

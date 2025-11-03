@@ -68,7 +68,7 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
-  const [rightSidebarOpen, setRightSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024);
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -86,7 +86,7 @@ const App = () => {
                   />
                   <AnimatedRoutes />
                </div>
-                <RightSidebar isVisible={rightSidebarOpen} onClose={() => setRightSidebarOpen(false)} />
+                <RightSidebar isVisible={rightSidebarOpen} />
                 </div>
             </SidebarProvider>
           </BrowserRouter>

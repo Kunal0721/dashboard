@@ -112,7 +112,7 @@ export function AppSidebar() {
       <SidebarHeader className="border-b px-3 py-4">
         <BrandLogo isCollapsed={isCollapsed} />
       </SidebarHeader>
-      <SidebarContent className="p-5">
+      <SidebarContent className="p-2">
         {/* Tabs for Favorites and Recently */}
         {!isCollapsed && (
           <div className="py-3">
@@ -174,13 +174,13 @@ export function AppSidebar() {
                       className="group/collapsible"
                     >
                       <SidebarMenuItem>
-                        <CollapsibleTrigger asChild>
-                          <SidebarMenuButton className="h-9">
-                            <item.icon className="h-4 w-4 shrink-0" />
-                            <span className="text-sm">{item.title}</span>
-                            <ChevronDown className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-0 group-data-[state=closed]/collapsible:-rotate-90 h-4 w-4" />
-                          </SidebarMenuButton>
-                        </CollapsibleTrigger>
+                      <CollapsibleTrigger asChild>
+                      <SidebarMenuButton className="h-9">
+                      <item.icon className="h-4 w-4 shrink-0" />
+                      <span className="text-sm">{item.title}</span>
+                      <ChevronDown className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-0 group-data-[state=closed]/collapsible:-rotate-90 h-4 w-4" />
+                      </SidebarMenuButton>
+                      </CollapsibleTrigger>
                         <CollapsibleContent>
                           <SidebarMenuSub>
                             {item.items.map((subItem) => (

@@ -96,6 +96,7 @@ const location = useLocation();
             variant="ghost"
             size="icon"
             className="h-8 w-8 md:h-9 md:w-9 hidden sm:flex hover:bg-[hsl(233,33%,97%)] dark:hover:bg-[hsl(0,1%,14%)] text-foreground hover:text-foreground"
+            onClick={onToggleRightSidebar}
           >
             <LayoutGrid className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
           </Button>

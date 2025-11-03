@@ -18,8 +18,8 @@ export default function CountUp({
     to,
     from = 0,
     direction = 'up',
-    delay = 0,
-    duration = 2,
+    delay = 0.2,
+    duration = 0.3,
     className = '',
     startWhen = true,
     separator = '',
@@ -78,7 +78,7 @@ export default function CountUp({
 
             const timeoutId = setTimeout(() => {
                 motionValue.set(direction === 'down' ? from : to);
-            }, delay * 1000);
+            }, delay * 500);
 
             const durationTimeoutId = setTimeout(
                 () => {
@@ -86,7 +86,7 @@ export default function CountUp({
                         onEnd();
                     }
                 },
-                delay * 1000 + duration * 1000
+                delay * 500 + duration * 500
             );
 
             return () => {
