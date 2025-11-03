@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug, faUserPlus, faBroadcastTower } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 const notifications = [
   { id: 1, title: "You have a bug that needs...", time: "Just now", icon: faBug },
@@ -28,14 +29,23 @@ const contacts = [
 
 interface RightSidebarProps {
   isVisible?: boolean
+  onClose?: () => void
 }
 
-export function RightSidebar({ isVisible = true }: RightSidebarProps) {
+export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
   const [hoveredNotification, setHoveredNotification] = useState<number | null>(null)
   const [hoveredActivity, setHoveredActivity] = useState<number | null>(null)
   const [hoveredContact, setHoveredContact] = useState<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
-  if (!isVisible) return null
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0, x: 20 },
@@ -152,15 +162,10 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
     },
   }
 
-  return (
-    <motion.div
-      className="w-64 border-l bg-background overflow-y-auto h-full"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+  const sidebarContent = (
+    <>
       {/* Header */}
-      <motion.div className="px-4 py-6 border-b" variants={headerVariants} initial="hidden" animate="visible">
+      <motion.div className="px-4 border-b" style={{padding : "16px 16px 20px 16px"}} variants={headerVariants} initial="hidden" animate="visible">
         <motion.h2
           className="text-xl font-bold"
           initial={{ opacity: 0, y: -5 }}
@@ -217,6 +222,7 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
                     <motion.span
                       className="text-sm font-medium truncate"
                       variants={textVariants}
+                      whileHover={hoveredNotification === notification.id ? "hover" : {}}
                     >
                       {notification.title}
                     </motion.span>
@@ -351,6 +357,23 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
           </div>
         </motion.div>
       </div>
-    </motion.div>
+    </>
   )
+
+  return isMobile ? (
+    <Sheet open={isVisible} onOpenChange={(open) => !open && onClose?.()}>
+      <SheetContent side="right" className="w-64 p-0 overflow-y-auto">
+        {sidebarContent}
+      </SheetContent>
+    </Sheet>
+  ) : isVisible ? (
+    <motion.div
+      className="w-64 border-l bg-background overflow-y-auto h-full"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {sidebarContent}
+    </motion.div>
+  ) : null
 }

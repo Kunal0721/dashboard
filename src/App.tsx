@@ -86,7 +86,7 @@ const App = () => {
                   />
                   <AnimatedRoutes />
                </div>
-                <RightSidebar isVisible={rightSidebarOpen} />
+                <RightSidebar isVisible={rightSidebarOpen} onClose={() => setRightSidebarOpen(false)} />
                 </div>
             </SidebarProvider>
           </BrowserRouter>
