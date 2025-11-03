@@ -4,6 +4,8 @@
 
 Modern dashboard for eCommerce analytics, order management, and business insights.
 
+project link  : [Live Demo](https://dashboard-kunal-bamoriya.vercel.app/)
+
 ** for using my project **
 
 ```sh
