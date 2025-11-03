@@ -3,9 +3,8 @@ import {
   faBug,
   faUserPlus,
   faBroadcastTower,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 const notifications = [
   { id: 1, title: "You have a bug that needs...", time: "Just now", icon: faBug },
@@ -32,106 +31,96 @@ const contacts = [
 
 interface RightSidebarProps {
   isVisible?: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
-  const [isMobile, setIsMobile] = useState(false);
+  return (
+    <div>
+      {/* Backdrop for mobile */}
+      {isVisible && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      <div className={`w-64 bg-background overflow-y-auto transition-transform duration-300 lg:border-l lg:relative lg:translate-x-0 lg:z-auto fixed inset-y-0 right-0 z-50 ${isVisible ? 'translate-x-0' : 'lg:translate-x-0 translate-x-full'}`}>
+        <div className="px-4 border-b flex items-center justify-between" style={{padding: "16px 16px 20px 16px"}}>
+          <h2 className="text-xl font-bold">Notifications</h2>
+          <button
+            onClick={onClose}
+            className="lg:hidden p-1 hover:bg-muted rounded"
+          >
+            <FontAwesomeIcon icon={faTimes} className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="px-4">
+          {/* Notifications Section */}
+          <div className="mb-6 mt-6">
+            <h3 className="text-base font-bold mb-4 text-foreground">
+              Notifications
+            </h3>
+            <div className="space-y-4">
+              {notifications.map((notification) => (
+                <div key={notification.id}>
+                  <div className="flex items-start gap-3">
+                    <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+                      <FontAwesomeIcon icon={notification.icon} className="h-5 w-5" />
+                    </div>
+                    <div className="flex flex-col min-w-0 flex-1">
+                      <span className="text-sm font-medium truncate">{notification.title}</span>
+                      <span className="text-xs text-muted-foreground mt-0.5">{notification.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+          {/* Activities Section */}
+          <div className="mb-6">
+            <h3 className="text-base font-bold mb-4 text-foreground">
+              Activities
+            </h3>
+            <div className="space-y-4">
+              {activities.map((activity) => (
+                <div key={activity.id}>
+                  <div className="flex items-start gap-3">
+                    <img
+                      src={activity.avatar}
+                      alt="User"
+                      className="h-10 w-10 rounded-full object-cover shrink-0"
+                    />
+                    <div className="flex flex-col min-w-0 flex-1">
+                      <span className="text-sm font-medium truncate">{activity.action}</span>
+                      <span className="text-xs text-muted-foreground mt-0.5">{activity.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-  if (!isVisible && !isMobile) return null;
-
-  const sidebarContent = (
-    <>
-      <div className="px-4 border-b" style={{padding : "16px 16px 20px 16px"}}>
-        <h2 className="text-xl font-bold">Notifications</h2>
+          {/* Contacts Section */}
+          <div className="mb-6">
+            <h3 className="text-base font-bold mb-4 text-foreground">Contacts</h3>
+            <div className="space-y-3">
+              {contacts.map((contact) => (
+                <div key={contact.id}>
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={contact.image}
+                      alt={contact.name}
+                      className="h-10 w-10 rounded-full object-cover shrink-0"
+                    />
+                    <span className="text-sm font-medium truncate">{contact.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="px-4">
-        {/* Notifications Section */}
-        <div className="mb-6 mt-6">
-          <h3 className="text-base font-bold mb-4 text-foreground">
-            Notifications
-          </h3>
-          <div className="space-y-4">
-            {notifications.map((notification) => (
-              <div key={notification.id}>
-                <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center shrink-0">
-                    <FontAwesomeIcon icon={notification.icon} className="h-5 w-5" />
-                  </div>
-                  <div className="flex flex-col min-w-0 flex-1">
-                    <span className="text-sm font-medium truncate">{notification.title}</span>
-                    <span className="text-xs text-muted-foreground mt-0.5">{notification.time}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Activities Section */}
-        <div className="mb-6">
-          <h3 className="text-base font-bold mb-4 text-foreground">
-            Activities
-          </h3>
-          <div className="space-y-4">
-            {activities.map((activity) => (
-              <div key={activity.id}>
-                <div className="flex items-start gap-3">
-                  <img
-                    src={activity.avatar}
-                    alt="User"
-                    className="h-10 w-10 rounded-full object-cover shrink-0"
-                  />
-                  <div className="flex flex-col min-w-0 flex-1">
-                    <span className="text-sm font-medium truncate">{activity.action}</span>
-                    <span className="text-xs text-muted-foreground mt-0.5">{activity.time}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Contacts Section */}
-        <div className="mb-6">
-          <h3 className="text-base font-bold mb-4 text-foreground">Contacts</h3>
-          <div className="space-y-3">
-            {contacts.map((contact) => (
-              <div key={contact.id}>
-                <div className="flex items-center gap-3">
-                  <img
-                    src={contact.image}
-                    alt={contact.name}
-                    className="h-10 w-10 rounded-full object-cover shrink-0"
-                  />
-                  <span className="text-sm font-medium truncate">{contact.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-
-  return isMobile ? (
-    <Sheet open={isVisible} onOpenChange={(open) => !open && onClose?.()}>
-      <SheetContent side="right" className="w-64 p-0 overflow-y-auto">
-        {sidebarContent}
-      </SheetContent>
-    </Sheet>
-  ) : (
-    <div className="w-64 border-l bg-background overflow-y-auto">
-      {sidebarContent}
     </div>
   );
 }
