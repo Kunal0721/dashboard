@@ -37,7 +37,7 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
 
   return (
     <div className="w-64 border-l bg-background overflow-y-auto">
-      <div className="px-4 py-6 border-b">
+      <div className="px-4 border-b" style={{padding : "16px 16px 20px 16px"}}>
         <h2 className="text-xl font-bold">Notifications</h2>
       </div>
       <div className="px-4">
