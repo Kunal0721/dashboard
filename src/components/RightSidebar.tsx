@@ -206,16 +206,8 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
 
       <div className="px-4">
         {/* Notifications Section */}
-        <motion.div className="mb-6 mt-6" variants={sectionVariants} initial="hidden" animate="visible">
-          <motion.h3
-            className="text-base font-bold mb-4 text-foreground"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-          >
-            Notifications
-          </motion.h3>
-          <div className="space-y-4">
+        <motion.div className="mb-8 mt-6" variants={sectionVariants} initial="hidden" animate="visible">
+          <div className="space-y-3">
             {notifications.map((notification, index) => (
               <motion.div
                 key={notification.id}
@@ -227,28 +219,25 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
                 onHoverEnd={() => setHoveredNotification(null)}
               >
                 <motion.div
-                  className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors"
+                  className="flex items-start gap-3 cursor-pointer"
                   variants={notificationItemVariants}
                   initial="initial"
                   animate="animate"
                   custom={index}
                   whileHover="hover"
-                  style={{
-                    backgroundColor: hoveredNotification === notification.id ? "var(--muted)" : "transparent",
-                  }}
                 >
                   <motion.div
-                    className="h-10 w-10 rounded-full bg-muted flex items-center justify-center shrink-0"
+                    className="h-10 w-10 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shrink-0"
                     variants={iconVariants}
                     initial="initial"
                     animate="animate"
                     whileHover={hoveredNotification === notification.id ? "hover" : "animate"}
                   >
-                    <FontAwesomeIcon icon={notification.icon} className="h-5 w-5" />
+                    <FontAwesomeIcon icon={notification.icon} className="h-4 w-4 text-foreground" />
                   </motion.div>
                   <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
                     <motion.span
-                      className="text-sm font-medium truncate"
+                      className="text-sm font-normal truncate text-foreground"
                       variants={textVariants}
                       whileHover={hoveredNotification === notification.id ? "hover" : {}}
                     >
@@ -269,7 +258,7 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
         </motion.div>
 
         {/* Activities Section */}
-        <motion.div className="mb-6" variants={sectionVariants} initial="hidden" animate="visible">
+        <motion.div className="mb-8" variants={sectionVariants} initial="hidden" animate="visible">
           <motion.h3
             className="text-base font-bold mb-4 text-foreground"
             initial={{ opacity: 0, x: -10 }}
@@ -278,7 +267,7 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
           >
             Activities
           </motion.h3>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {activities.map((activity, index) => (
               <motion.div
                 key={activity.id}
@@ -290,15 +279,12 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
                 onHoverEnd={() => setHoveredActivity(null)}
               >
                 <motion.div
-                  className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors"
+                  className="flex items-start gap-3 cursor-pointer"
                   variants={notificationItemVariants}
                   initial="initial"
                   animate="animate"
                   custom={index}
                   whileHover="hover"
-                  style={{
-                    backgroundColor: hoveredActivity === activity.id ? "var(--muted)" : "transparent",
-                  }}
                 >
                   <motion.img
                     src={activity.avatar}
@@ -311,7 +297,7 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
                   />
                   <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
                     <motion.span
-                      className="text-sm font-medium truncate"
+                      className="text-sm font-normal truncate text-foreground"
                       variants={textVariants}
                       whileHover={hoveredActivity === activity.id ? "hover" : {}}
                     >
@@ -353,15 +339,12 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
                 onHoverEnd={() => setHoveredContact(null)}
               >
                 <motion.div
-                  className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors"
+                  className="flex items-center gap-3 cursor-pointer"
                   variants={notificationItemVariants}
                   initial="initial"
                   animate="animate"
                   custom={index}
                   whileHover="hover"
-                  style={{
-                    backgroundColor: hoveredContact === contact.id ? "var(--muted)" : "transparent",
-                  }}
                 >
                   <motion.img
                     src={contact.image}
@@ -373,7 +356,7 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
                     whileHover={hoveredContact === contact.id ? "hover" : "animate"}
                   />
                   <motion.span
-                    className="text-sm font-medium truncate"
+                    className="text-sm font-normal truncate text-foreground"
                     variants={textVariants}
                     whileHover={hoveredContact === contact.id ? "hover" : {}}
                   >
