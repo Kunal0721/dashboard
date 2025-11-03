@@ -154,7 +154,7 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
 
   return (
     <motion.div
-      className="w-64 border-l bg-background overflow-y-auto"
+      className="w-64 border-l bg-background overflow-y-auto h-full"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
