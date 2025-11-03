@@ -146,7 +146,6 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
 
   const textVariants = {
     hover: {
-      color: "var(--primary)",
       transition: {
         duration: 0.2,
       },
@@ -218,7 +217,6 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
                     <motion.span
                       className="text-sm font-medium truncate"
                       variants={textVariants}
-                      whileHover={hoveredNotification === notification.id ? "hover" : {}}
                     >
                       {notification.title}
                     </motion.span>
