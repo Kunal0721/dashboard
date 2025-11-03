@@ -4,6 +4,8 @@ import {
   faUserPlus,
   faBroadcastTower,
 } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 const notifications = [
   { id: 1, title: "You have a bug that needs...", time: "Just now", icon: faBug },
@@ -30,13 +32,25 @@ const contacts = [
 
 interface RightSidebarProps {
   isVisible?: boolean;
+  onClose?: () => void;
 }
 
-export function RightSidebar({ isVisible = true }: RightSidebarProps) {
-  if (!isVisible) return null;
+export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
+  const [isMobile, setIsMobile] = useState(false);
 
-  return (
-    <div className="w-64 border-l bg-background overflow-y-auto">
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (!isVisible && !isMobile) return null;
+
+  const sidebarContent = (
+    <>
       <div className="px-4 border-b" style={{padding : "16px 16px 20px 16px"}}>
         <h2 className="text-xl font-bold">Notifications</h2>
       </div>
@@ -106,6 +120,18 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
           </div>
         </div>
       </div>
+    </>
+  );
+
+  return isMobile ? (
+    <Sheet open={isVisible} onOpenChange={(open) => !open && onClose?.()}>
+      <SheetContent side="right" className="w-64 p-0 overflow-y-auto">
+        {sidebarContent}
+      </SheetContent>
+    </Sheet>
+  ) : (
+    <div className="w-64 border-l bg-background overflow-y-auto">
+      {sidebarContent}
     </div>
   );
 }
