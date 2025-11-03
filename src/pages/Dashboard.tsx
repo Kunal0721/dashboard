@@ -19,6 +19,8 @@ import {
   ComposedChart,
 } from "recharts";
 
+
+
 const barData = [
   { month: "Jan", projection: 18000000, actual: 22000000 },
   { month: "Feb", projection: 21000000, actual: 26000000 },
@@ -80,6 +82,10 @@ const products = [
   },
   { name: "Marco Shoes", price: "$79.49", quantity: 64, amount: "$5,087.36" },
 ];
+
+
+
+
 
 export default function Dashboard() {
 
