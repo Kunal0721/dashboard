@@ -81,13 +81,13 @@ const App = () => {
               <div className='flex min-h-screen w-full'>
                 <AppSidebar />
                 <div className='flex-1 flex flex-col'>
-                  <AppHeader 
+                  <AppHeader
                     onToggleRightSidebar={() => setRightSidebarOpen(!rightSidebarOpen)}
                   />
                   <AnimatedRoutes />
-                </div>
+               </div>
                 <RightSidebar isVisible={rightSidebarOpen} />
-              </div>
+                </div>
             </SidebarProvider>
           </BrowserRouter>
         </TooltipProvider>

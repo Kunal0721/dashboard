@@ -6,18 +6,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const notifications = [
-  { id: 1, title: "You have a bug that needs...", time: "Just now", icon: faBug },
-  { id: 2, title: "New user registered", time: "59 minutes ago", icon: faUserPlus },
-  { id: 3, title: "You have a bug that needs...", time: "12 hours ago", icon: faBug },
-  { id: 4, title: "Andi Lane subscribed to you", time: "Today, 11:59 AM", icon: faBroadcastTower },
+{ id: 1, title: "You have a bug that needs...", time: "Just now", icon: faBug },
+{ id: 2, title: "New user registered", time: "59 minutes ago", icon: faUserPlus },
+{ id: 3, title: "You have a bug that needs...", time: "12 hours ago", icon: faBug },
+{ id: 4, title: "Andi Lane subscribed to you", time: "Today, 11:59 AM", icon: faBroadcastTower },
 ];
 
 const activities = [
-  { id: 1, action: "You have a bug that needs...", time: "Just now", avatar: "/images/NataliCraig.png" },
-  { id: 2, action: "Released a new version", time: "59 minutes ago", avatar: "/images/DrewCano.png" },
-  { id: 3, action: "Submitted a bug", time: "12 hours ago", avatar: "/images/OrlandoDiggs.png" },
-  { id: 4, action: "Modified A data in Page X", time: "Today, 11:59 AM", avatar: "/images/AndiLane.png" },
-  { id: 5, action: "Deleted a page in Project X", time: "Feb 2, 2023", avatar: "/images/KateMorrison.png" },
+{ id: 1, action: "You have a bug that needs...", time: "Just now", avatar: "/images/NataliCraig.png" },
+{ id: 2, action: "Released a new version", time: "59 minutes ago", avatar: "/images/DrewCano.png" },
+{ id: 3, action: "Submitted a bug", time: "12 hours ago", avatar: "/images/OrlandoDiggs.png" },
+{ id: 4, action: "Modified A data in Page X", time: "Today, 11:59 AM", avatar: "/images/AndiLane.png" },
+{ id: 5, action: "Deleted a page in Project X", time: "Feb 2, 2023", avatar: "/images/KateMorrison.png" },
 ];
 
 const contacts = [
@@ -89,9 +89,7 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
 
         {/* Contacts Section */}
         <div className="mb-6">
-          <h3 className="text-base font-bold mb-4 text-foreground">
-            Contacts
-          </h3>
+          <h3 className="text-base font-bold mb-4 text-foreground">Contacts</h3>
           <div className="space-y-3">
             {contacts.map((contact) => (
               <div key={contact.id}>
