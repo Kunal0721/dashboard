@@ -122,7 +122,8 @@ export default function Dashboard() {
               <CardTitle className="text-sm md:text-base font-semibold">Projections vs Actuals</CardTitle>
             </CardHeader>
             <CardContent className="pb-4 md:pb-6">
-              <ResponsiveContainer width="100%" height={220} className="md:hidden">
+              <style>{`.recharts-bar:hover { opacity: 1 !important; filter: none !important; }`}</style>
+            <ResponsiveContainer width="100%" height={220} className="md:hidden">
                 <BarChart data={barData}>
                   <CartesianGrid
                     strokeDasharray="0"
@@ -158,12 +159,12 @@ export default function Dashboard() {
                     barSize={16}
                   />
                   <Bar
-                    dataKey="actual"
-                    stackId="a"
-                    fill="#bfdbfe"
-                    name="Actual"
-                    radius={[4, 4, 0, 0]}
-                    barSize={16}
+                  dataKey="actual"
+                  stackId="a"
+                  fill="#bfdbfe"
+                  name="Actual"
+                  radius={[4, 4, 0, 0]}
+                  barSize={16}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -194,20 +195,20 @@ export default function Dashboard() {
                     }}
                   />
                   <Bar
-                    dataKey="projection"
-                    stackId="a"
-                    fill="#93c5fd"
-                    name="Projection"
-                    radius={0}
-                    barSize={32}
+                  dataKey="projection"
+                  stackId="a"
+                  fill="#93c5fd"
+                  name="Projection"
+                  radius={0}
+                  barSize={32}
                   />
                   <Bar
-                    dataKey="actual"
-                    stackId="a"
-                    fill="#bfdbfe"
-                    name="Actual"
-                    radius={[6, 6, 0, 0]}
-                    barSize={32}
+                  dataKey="actual"
+                  stackId="a"
+                  fill="#bfdbfe"
+                  name="Actual"
+                  radius={[6, 6, 0, 0]}
+                  barSize={32}
                   />
                 </BarChart>
               </ResponsiveContainer>
