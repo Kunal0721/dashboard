@@ -8,6 +8,7 @@ LayoutGrid,
 Star,
 LayoutPanelLeft,
 } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -34,6 +35,7 @@ const routeNames: Record<string, string> = {
 export function AppHeader({ onToggleRightSidebar }: AppHeaderProps) {
 const { theme, setTheme } = useTheme();
 const location = useLocation();
+  const [isStarred, setIsStarred] = useState(false);
 
   // Get the current route name
   const currentRouteName = routeNames[location.pathname] || "Default";
@@ -44,8 +46,8 @@ const location = useLocation();
         {/* Left Section */}
         <div className="flex items-center gap-2 md:gap-3">
           <SidebarTrigger className="h-5 w-5 hover:bg-[hsl(233,33%,97%)] dark:hover:bg-[hsl(0,1%,14%)] rounded-md transition-colors text-foreground hover:text-foreground" />
-          <Button variant="ghost" size="icon" className="h-8 w-8 md:h-9 md:w-9 hidden sm:flex hover:bg-[hsl(233,33%,97%)] dark:hover:bg-[hsl(0,1%,14%)] text-foreground hover:text-foreground">
-          <Star className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
+          <Button variant="ghost" size="icon" className="h-8 w-8 md:h-9 md:w-9 hidden sm:flex hover:bg-[hsl(233,33%,97%)] dark:hover:bg-[hsl(0,1%,14%)] text-foreground hover:text-foreground" onClick={() => setIsStarred(!isStarred)}>
+            <Star className={`h-4 w-4 md:h-5 md:w-5 ${isStarred ? 'fill-yellow-400 text-yellow-400' : 'text-foreground'}`} />
           </Button>
           <div className="hidden md:flex items-center gap-2 text-sm">
             <span className="text-muted-foreground">Dashboards</span>
@@ -77,8 +79,8 @@ const location = useLocation();
             <Moon className="absolute h-4 w-4 md:h-5 md:w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-foreground" />
           </Button>
 
-          <Button variant="ghost" size="icon" className="h-8 w-8 md:h-9 md:w-9 hidden sm:flex hover:bg-[hsl(233,33%,97%)] dark:hover:bg-[hsl(0,1%,14%)] text-foreground hover:text-foreground">
-            <History className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
+          <Button variant="ghost" size="icon" className="h-8 w-8 md:h-9 md:w-9 hidden sm:flex hover:bg-[hsl(233,33%,97%)] dark:hover:bg-[hsl(0,1%,14%)] text-foreground hover:text-foreground" onClick={() => window.location.reload()}>
+          <History className="h-4 w-4 md:h-5 md:w-5 text-foreground" />
           </Button>
 
           <Button
