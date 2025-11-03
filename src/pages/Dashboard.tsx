@@ -218,7 +218,7 @@ export default function Dashboard() {
 
       {/* Revenue and Revenue by Location */}
       <div className="flex flex-col lg:flex-row gap-4 md:gap-6">
-        <Card className="h-full flex-1 lg:w-[80%]">
+        <Card className="h-full flex-1 lg:w-[78%]">
           <CardHeader className="pb-4 md:pb-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <CardTitle className="text-base md:text-lg font-semibold">Revenue</CardTitle>
@@ -241,7 +241,7 @@ export default function Dashboard() {
             </div>
           </CardHeader>
           <CardContent className="pb-6">
-            <ResponsiveContainer width="100%" height={240} className="md:hidden">
+            <ResponsiveContainer width="100%" height={380} className="md:hidden">
               <LineChart data={lineData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
                 <CartesianGrid
                   strokeDasharray="0"
@@ -291,7 +291,7 @@ export default function Dashboard() {
                 />
               </LineChart>
             </ResponsiveContainer>
-            <ResponsiveContainer width="100%" height={342} className="hidden md:block">
+            <ResponsiveContainer width="100%" height={380} className="hidden md:block">
               <LineChart data={lineData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
                 <CartesianGrid
                   strokeDasharray="0"
@@ -344,7 +344,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="h-full lg:w-[28%]">
+        <Card className="h-full lg:w-[28.5%]">
           <CardHeader className="pb-4 md:pb-6">
             <CardTitle className="text-base md:text-lg font-semibold">Revenue by Location</CardTitle>
           </CardHeader>
