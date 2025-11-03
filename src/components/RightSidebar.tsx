@@ -181,10 +181,10 @@ export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
         />
       )}
       <motion.div
-        className={`bg-background overflow-y-auto lg:relative lg:z-auto fixed inset-y-0 right-0 z-50 transition-all duration-300 ${isVisible ? 'w-64 translate-x-0' : 'lg:w-0 translate-x-full'}`}
+        className={`bg-background overflow-y-auto lg:relative lg:z-auto fixed inset-y-0 right-0 z-50 transition-all duration-300 ${isVisible ? 'w-64 translate-x-0' : 'w-0 lg:w-0 translate-x-full'}`}
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        animate={isVisible ? "visible" : "hidden"}
       >
       {/* Header */}
       <motion.div className="px-4 border-b flex items-center justify-between" style={{padding : "16px 16px 20px 16px"}} variants={headerVariants} initial="hidden" animate="visible">
