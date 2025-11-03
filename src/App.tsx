@@ -68,7 +68,7 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
-  const [rightSidebarOpen, setRightSidebarOpen] = useState(true);
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
