@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBug, faUserPlus, faBroadcastTower } from "@fortawesome/free-solid-svg-icons"
+import { faBug, faUserPlus, faBroadcastTower, faTimes } from "@fortawesome/free-solid-svg-icons"
 import { motion } from "framer-motion"
 import { useState } from "react"
 
@@ -28,14 +28,13 @@ const contacts = [
 
 interface RightSidebarProps {
   isVisible?: boolean
+  onClose: () => void
 }
 
-export function RightSidebar({ isVisible = true }: RightSidebarProps) {
+export function RightSidebar({ isVisible = true, onClose }: RightSidebarProps) {
   const [hoveredNotification, setHoveredNotification] = useState<number | null>(null)
   const [hoveredActivity, setHoveredActivity] = useState<number | null>(null)
   const [hoveredContact, setHoveredContact] = useState<number | null>(null)
-
-  if (!isVisible) return null
 
   const containerVariants = {
     hidden: { opacity: 0, x: 20 },
@@ -173,14 +172,22 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
   }
 
   return (
-    <motion.div
-      className="w-64 border-l bg-background overflow-y-auto"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <div>
+      {/* Backdrop for mobile/tablet */}
+      {isVisible && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+      <motion.div
+        className={`bg-background overflow-y-auto lg:relative lg:z-auto fixed inset-y-0 right-0 z-50 transition-all duration-300 ${isVisible ? 'w-64 translate-x-0' : 'lg:w-0 translate-x-full'}`}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
       {/* Header */}
-      <motion.div className="px-4 py-6 border-b" variants={headerVariants} initial="hidden" animate="visible">
+      <motion.div className="px-4 border-b flex items-center justify-between" style={{padding : "16px 16px 20px 16px"}} variants={headerVariants} initial="hidden" animate="visible">
         <motion.h2
           className="text-xl font-bold"
           initial={{ opacity: 0, y: -5 }}
@@ -189,6 +196,12 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
         >
           Notifications
         </motion.h2>
+        <button
+          onClick={onClose}
+          className="lg:hidden p-1 hover:bg-muted rounded"
+        >
+          <FontAwesomeIcon icon={faTimes} className="h-5 w-5" />
+        </button>
       </motion.div>
 
       <div className="px-4">
@@ -372,6 +385,7 @@ export function RightSidebar({ isVisible = true }: RightSidebarProps) {
           </div>
         </motion.div>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }

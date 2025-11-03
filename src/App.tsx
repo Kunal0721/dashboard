@@ -83,12 +83,12 @@ const App = () => {
   <div className='flex-1 flex'>
   <div className='flex-1 flex flex-col'>
   <AppHeader
-      onToggleRightSidebar={() => setRightSidebarOpen(!rightSidebarOpen)}
-    />
-      <AnimatedRoutes />
-    </div>
-    {rightSidebarOpen && <RightSidebar />}
-      </div>
+  onToggleRightSidebar={() => setRightSidebarOpen(!rightSidebarOpen)}
+  />
+  <AnimatedRoutes />
+  </div>
+  <RightSidebar isVisible={rightSidebarOpen} onClose={() => setRightSidebarOpen(false)} />
+  </div>
       </div>
       </SidebarProvider>
       </BrowserRouter>
